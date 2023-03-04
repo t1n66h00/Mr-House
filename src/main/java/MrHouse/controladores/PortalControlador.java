@@ -58,8 +58,8 @@ public class PortalControlador {
         if (error != null) {
             modelo.put("error", "Usuario o contraseña invalidas");
         }
-        return "ingreso.html";
-    }
+        return "ingreso.html";      
+    } 
     
     @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ADMIN','ROLE_PROPIETARIO','ROLE_INMOBILIARIA')")
     @GetMapping("/inicio")
