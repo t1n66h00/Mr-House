@@ -35,16 +35,12 @@
         </li>
       </ul>
       <a th:href="@{/ingresar}"><button class="btn btn-dark"th:if ="${session.usuariosession ==null}">Ingresar</button></a>
-<<<<<<< HEAD
 <<<<<<<< HEAD:src/main/resources/templates/propiedades.html
-=======
->>>>>>> rama
       <a th:href="@{/ingresar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}" >Publicar</button></a>
         <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/perfil">Mi perfil</a></li>
           <li><a class="dropdown-item" href="/usuarios">Administrar usuarios</a></li>
-<<<<<<< HEAD
 ========
       <a th:href="@{/publicar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}"  >Publicar</button></a>
         <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
@@ -52,13 +48,10 @@
           <li><a class="dropdown-item" th:href="@{/perfil}">Mi perfil</a></li>
           <li><a class="dropdown-item" th:href="@{/admin/usuarios}">Administrar usuarios</a></li>
 >>>>>>>> rama:src/main/resources/templates/inmueble.html
-=======
->>>>>>> rama
           <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
         </ul>
     </div>
   </div>
-<<<<<<< HEAD
 <<<<<<<< HEAD:src/main/resources/templates/propiedades.html
 </nav>
 <br>
@@ -68,30 +61,3 @@
 ========
 </nav>
 >>>>>>>> rama:src/main/resources/templates/inmueble.html
-=======
-</nav>
-<br>
-    <h1 class="titulos">Propiedades</h1>
-    <br>
-
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">tipo de propiedad</h5>
-            <img src="" alt="">
-            <p class="card-text">precio</p>
-            <p class="card-text">localidad</p>
-            <i class="fa-solid fa-maximize">m2: </i>
-            <i class="fa-solid fa-bed">2</i>
-            <i class="fa-solid fa-bath">2</i>
-            <i class="fa-solid fa-warehouse">si/no</i>
-            <br>
-            <a class="btn btn-dark" href="/inmueble" role="button">Ver inmueble</a>
-            <img src="" alt="">
-          </div>
-        </div>
-      </div>
-</body>
-</html>
->>>>>>> rama

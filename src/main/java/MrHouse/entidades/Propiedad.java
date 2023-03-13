@@ -5,6 +5,7 @@
  */
 package MrHouse.entidades;
 
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,15 +29,17 @@ public class Propiedad {
 
     @Column(unique = true)
 
-    private String precio;
+
+    private Double precio;
     private String propiedadTipo; //1=CASA 2=DEPARTAMENTO   
     private String m2;
     private String habitaciones;
     private String banos;
     private boolean cochera;
     private String direccion;
-    private String ciudad;
     private String descripcion;
+    private String transaccionPropiedad; //Tipo de transacción: Venta o Alquiler
+    private String provincia;
 
     private boolean alta;
 
@@ -56,14 +59,6 @@ public class Propiedad {
 
     public void setId(String id) {
         this.id = id;
-    }
-    
-    public String getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(String precio) {
-        this.precio = precio;
     }
 
     public String getM2() {
@@ -98,20 +93,20 @@ public class Propiedad {
         this.propiedadTipo = propiedadTipo;
     }
 
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
     public String getHabitaciones() {
         return habitaciones;
     }
 
     public void setHabitaciones(String habitaciones) {
         this.habitaciones = habitaciones;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
     }
 
     public Inmobiliaria getInmobiliaria() {
@@ -145,8 +140,7 @@ public class Propiedad {
     public void setFoto(Foto foto) {
         this.foto = foto;
     }
-
-
+    
     public boolean isCochera() {
         return cochera;
     }
@@ -161,5 +155,25 @@ public class Propiedad {
 
     public void setAlta(boolean alta) {
         this.alta = alta;
+    }
+
+    public void setAlta(Optional<Boolean> alta) {
+        this.alta = alta.orElse(false);
+    }
+
+    public String getTransaccionPropiedad() {
+        return transaccionPropiedad;
+    }
+
+    public void setTransaccionPropiedad(String transaccionPropiedad) {
+        this.transaccionPropiedad = transaccionPropiedad;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 }

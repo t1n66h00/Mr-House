@@ -46,6 +46,7 @@
   </div>
 </nav>
 <h3 class="text-center">Publique su inmueble</h3>
+<<<<<<< HEAD
 <form class="form" th:action="@{/propiedades/publicado}" method="POST" enctype="multipart/form-data">
       <div class="form-group mb-3">
           <input type="text" class="form-control" name="precio" placeholder="Precio" th:value="${precio}">
@@ -92,6 +93,31 @@
       </div>
       <div class="form-group mb-3">
         <textarea rows="10" class="form-control" placeholder="Descripcion" th:value="${descripcion}"></textarea>
+=======
+<form class="form" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
+      <div class="form-group mb-3">
+          <input type="text" class="form-control" name="metros" placeholder="Metros cuadrados">
+      </div>
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" name="nombre" placeholder="Cant. Habitaciones" >
+      </div>
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" name="nombre" placeholder="Cant. baños">
+      </div>
+      <div class="form-group mb-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Cochera</option>
+          <option value="1">Si</option>
+          <option value="2">No</option>
+        </select>
+      </div>
+      <div class="form-group mb-3">
+        <label>Foto del inmueble </label>
+          <input type="file" class="form-control" name="archivo" >
+      </div>
+      <div class="form-group mb-3">
+        <textarea rows="10" class="form-control" placeholder="Descripcion"></textarea>
+>>>>>>> rama
       </div>
       <div>
           <button type="submit" class="btn btn-dark mb-3">Publicar</button>

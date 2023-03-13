@@ -24,7 +24,7 @@ public class PropiedadServicios {
 
     @Autowired
     PropiedadRepositorio propiedadRepositorio;
-    
+
     @Autowired
     private FotoServicios fotoServicios;
 
@@ -33,7 +33,6 @@ public class PropiedadServicios {
         //P=PERSISTIR V=VALIDAR
         Propiedad propiedadP = validar(propiedadV);
 
-        
         Foto foto = fotoServicios.save(archivo);
         propiedadP.setFoto(foto);
         propiedadRepositorio.save(propiedadP);
@@ -44,14 +43,12 @@ public class PropiedadServicios {
     public void modificar(MultipartFile archivo, Propiedad propiedadC) throws MyException {
         try {
             Propiedad propiedadP = validarCambios(propiedadC, buscarPorId(propiedadC.getId()));
-            
-            if (archivo != null && !archivo.isEmpty())
-            {
+
+            if (archivo != null && !archivo.isEmpty()) {
                 propiedadP.setFoto(fotoServicios.save(archivo));
             }
-            
+
             propiedadRepositorio.save(propiedadP);
-            
         } catch (MyException e) {
             throw new MyException("No se editó la propiedad");
         }
@@ -74,7 +71,7 @@ public class PropiedadServicios {
         Optional<Propiedad> op = propiedadRepositorio.findById(propiedad.getId());
         if (op.isPresent()) {
             Propiedad aux = op.get();
-            aux.setAlta(Boolean.FALSE);
+            aux.setAlta(Optional.of(false));
             propiedadRepositorio.save(aux);
         }
 
@@ -86,10 +83,9 @@ public class PropiedadServicios {
         Optional<Propiedad> op = propiedadRepositorio.findById(propiedad.getId());
         if (op.isPresent()) {
             Propiedad aux = op.get();
-            aux.setAlta(Boolean.TRUE);
+            aux.setAlta(Optional.of(true));
             propiedadRepositorio.save(aux);
         }
-        
     }
 
     @Transactional
@@ -105,11 +101,11 @@ public class PropiedadServicios {
     }
 
     private Propiedad validar(Propiedad propiedad) throws MyException {
+        propiedad.setAlta(Optional.of(true));
 
-        propiedad.setAlta(true);
+        if (propiedad.getPrecio() == null) {
+            throw new MyException("El precio no puede ser nulo");
 
-        if (propiedad.getPrecio().isEmpty() || propiedad.getPrecio() == null) {
-            throw new MyException("El precio no puede ser nulo o estar vacío");
         }
         if (propiedad.getPropiedadTipo().isEmpty() || propiedad.getPropiedadTipo() == null) {
             throw new MyException("El tipo de propiedad no puede ser nulo o estar vacío");
@@ -129,11 +125,14 @@ public class PropiedadServicios {
         if (propiedad.getDireccion().isEmpty() || propiedad.getDireccion() == null) {
             throw new MyException("La dirección no puede ser nula o estar vacía");
         }
-        if (propiedad.getCiudad().isEmpty() || propiedad.getCiudad() == null) {
-            throw new MyException("La ciudad no puede ser nula o estar vacía");
-        }
         if (propiedad.getInmobiliaria().getId().isEmpty() || propiedad.getInmobiliaria().getId() == null) {
             throw new MyException("La inmobiliaria no puede ser nula o estar vacía");
+        }
+        if (propiedad.getTransaccionPropiedad().isEmpty() || propiedad.getTransaccionPropiedad() == null) {
+            throw new MyException("La propiedad no puede ser nula o estar vacía");
+        }
+        if (propiedad.getProvincia().isEmpty() || propiedad.getProvincia() == null) {
+            throw new MyException("La provincia no puede ser nula o estar vacía");
         }
         return propiedad;
     }
@@ -148,14 +147,13 @@ public class PropiedadServicios {
                 && propiedadC.getBanos().equals(propiedadP.getBanos())
                 && propiedadC.isCochera() == (propiedadP.isCochera())
                 && propiedadC.getDireccion().equals(propiedadP.getDireccion())
-                && propiedadC.getCiudad().equals(propiedadP.getCiudad())
                 && propiedadC.getDescripcion().equals(propiedadP.getDescripcion())
                 && propiedadC.getFoto().equals(propiedadP.getFoto())
-                && propiedadC.getInmobiliaria().equals(propiedadP.getInmobiliaria()))
-        {
+                && propiedadC.getInmobiliaria().equals(propiedadP.getInmobiliaria())
+                && propiedadC.getTransaccionPropiedad().equals(propiedadP.getTransaccionPropiedad())
+                && propiedadC.getProvincia().equals(propiedadP.getProvincia())) {
             throw new MyException("No existen cambios para editar");
         }
-        
         if (!propiedadC.getPrecio().equals(propiedadP.getPrecio())) {
             propiedadP.setPrecio(propiedadC.getPrecio());
         }
@@ -177,16 +175,19 @@ public class PropiedadServicios {
         if (!propiedadC.getDireccion().equals(propiedadP.getDireccion())) {
             propiedadP.setDireccion(propiedadC.getDireccion());
         }
-        if (!propiedadC.getCiudad().equals(propiedadP.getCiudad())) {
-            propiedadP.setCiudad(propiedadC.getCiudad());
-        }
-        if (!propiedadC.getDescripcion().equals(propiedadP.getDescripcion())) {
+
+        if (!propiedadC.getDescripcion()
+                .equals(propiedadP.getDescripcion())) {
             propiedadP.setDescripcion(propiedadC.getDescripcion());
         }
-        if (!propiedadC.getFoto().equals(propiedadP.getFoto())) {
+
+        if (!propiedadC.getFoto()
+                .equals(propiedadP.getFoto())) {
             propiedadP.setFoto(propiedadC.getFoto());
         }
-        if (!propiedadC.getInmobiliaria().equals(propiedadP.getInmobiliaria())) {
+
+        if (!propiedadC.getInmobiliaria()
+                .equals(propiedadP.getInmobiliaria())) {
             propiedadP.setInmobiliaria(propiedadC.getInmobiliaria());
         }
         return propiedadP;

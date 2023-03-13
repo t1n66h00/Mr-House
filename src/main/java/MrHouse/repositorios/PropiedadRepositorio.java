@@ -15,19 +15,23 @@ import org.springframework.data.repository.query.Param;
  *
  * @author facuq
  */
-public interface PropiedadRepositorio extends  JpaRepository<Propiedad, String> {
+public interface PropiedadRepositorio extends JpaRepository<Propiedad, String> {
+
     @Query("SELECT u FROM Propiedad u WHERE u.id = :id")
-    
+
     public Propiedad buscarPorID(@Param("id") String id);
-    
-    @Query("SELECT u FROM Propiedad u WHERE u.ciudad = :ciudad")
-    
-    List<Propiedad> buscarPorCiudad(@Param("ciudad") String ciudad);
-    
-    @Query("SELECT u FROM Propiedad u WHERE u.ciudad = :ciudad")
-    
-    public Propiedad buscarPorAlta(@Param("ciudad") String ciudad);
-    
+
+    @Query("SELECT u FROM Propiedad u WHERE u.provincia = :provincia")
+
+    List<Propiedad> buscarPorCiudad(@Param("provincia") String provincia);
+
+    @Query("SELECT u FROM Propiedad u WHERE u.provincia = :provincia")
+
+    public Propiedad buscarPorAlta(@Param("provincia") String provincia);
+
     @Query("SELECT p from Propiedad p WHERE p.alta = true")
     List<Propiedad> buscaActivos(@Param("activos") String activos);
+
+    @Query("SELECT p FROM Propiedad p WHERE p.propiedadTipo = :tipoPropiedad AND p.transaccionPropiedad = :transaccionPropiedad AND p.provincia = :provincia AND p.precio BETWEEN :precioMin AND :precioMax")
+    List<Propiedad> buscarPropiedades(@Param("tipoPropiedad") String tipoPropiedad, @Param("transaccionPropiedad") String transaccionPropiedad, @Param("provincia") String provincia, @Param("precioMin") Double precioMin, @Param("precioMax") Double precioMax);
 }
