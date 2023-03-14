@@ -1,126 +1,106 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr-House</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/6dd88c038c.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/estilos.css">
-    <link rel="icon" th:href="@{/img/Favicon.ico}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mr-House</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6dd88c038c.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/css/estilos.css">
+        <link rel="icon" th:href="@{/img/Favicon.ico}">
+    </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-   <a class="navbar-brand" th:href="@{/}">
-      <img th:src="@{/img/Logo.png}" width="50px" height="50px" alt="Logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link text-dark" th:href="@{/propiedades}">Propiedades</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" th:href="@{/inmobiliarias}">Inmobiliarias</a>
-            </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" th:href="@{/contacto}">Contacto</a>
-        </li>
-      </ul>
-      <a th:href="@{/ingresar}"><button class="btn btn-dark"th:if ="${session.usuariosession ==null}">Ingresar</button></a>
-      <a th:href="@{/ingresar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}" >Publicar</button></a>
-        <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/perfil">Mi perfil</a></li>
-          <li><a class="dropdown-item" href="/usuarios">Administrar usuarios</a></li>
-          <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
-        </ul>
-    </div>
-  </div>
-</nav>
-<h3 class="text-center">Publique su inmueble</h3>
-<<<<<<< HEAD
-<form class="form" th:action="@{/propiedades/publicado}" method="POST" enctype="multipart/form-data">
-      <div class="form-group mb-3">
-          <input type="text" class="form-control" name="precio" placeholder="Precio" th:value="${precio}">
-      </div>
-      <div class="form-group mb-3">
-        <select class="form-select" th:value="${propiedadTipo}" aria-label="Default select example">
-          <option selected>Tipo de propiedad</option>
-          <option value="1">Casa</option>
-          <option value="2">Departamento</option>
-          <option value="3">Lote</option>
-        </select>
-      </div>
-      <div class="form-group mb-3">
-          <input type="text" class="form-control" name="m2" placeholder="Metros cuadrados" th:value="${m2}">
-      </div>
-      <div class="form-group mb-3">
-        <input type="text" class="form-control" name="habitaciones" placeholder="Cant. Habitaciones" th:value="${habitaciones}">
-      </div>
-      <div class="form-group mb-3">
-        <input type="text" class="form-control" name="banos" placeholder="Cant. baños" th:value="${banos}">
-      </div>
-      <div class="form-group mb-3">
-        <select class="form-select" th:value="${cochera}" aria-label="Default select example">
-          <option selected>Cochera</option>
-          <option value="true">Si</option>
-          <option value="false">No</option>
-        </select>
-          </div>
-    <div class="form-group mb-3">
-                  <select class="form-select" th:value="${ciudad}" aria-label="Default select example">
-                    <option selected>Provincia</option>
-                    <option value="Buenos Aires">Buenos Aires</option>
-                    <option value="Córdoba">Cordoba</option>
-                    <option value="Mendoza">Mendoza</option>
-                    <option value="Santa Fe">Santa Fe</option>
-                  </select>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/Logo.png}" width="50px" height="50px" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/propiedades}">Propiedades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/inmobiliarias}">Inmobiliarias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/contacto}">Contacto</a>
+                        </li>
+                    </ul>
+                    <a th:href="@{/ingresar}"><button class="btn btn-dark"th:if ="${session.usuariosession ==null}">Ingresar</button></a>
+                    <a th:href="@{/ingresar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}" >Publicar</button></a>
+                    <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/perfil">Mi perfil</a></li>
+                        <li><a class="dropdown-item" href="/usuarios">Administrar usuarios</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
+                    </ul>
                 </div>
-      <div class="form-group mb-3">
-        <input type="text" class="form-control" name="direccion" placeholder="Dirección" th:value="${direccion}">
-      </div>    
-      <div class="form-group mb-3">
-        <label>Foto del inmueble </label>
-          <input type="file" class="form-control" name="archivo" th:value="${image}">
-      </div>
-      <div class="form-group mb-3">
-        <textarea rows="10" class="form-control" placeholder="Descripcion" th:value="${descripcion}"></textarea>
-=======
-<form class="form" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
-      <div class="form-group mb-3">
-          <input type="text" class="form-control" name="metros" placeholder="Metros cuadrados">
-      </div>
-      <div class="form-group mb-3">
-        <input type="text" class="form-control" name="nombre" placeholder="Cant. Habitaciones" >
-      </div>
-      <div class="form-group mb-3">
-        <input type="text" class="form-control" name="nombre" placeholder="Cant. baños">
-      </div>
-      <div class="form-group mb-3">
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Cochera</option>
-          <option value="1">Si</option>
-          <option value="2">No</option>
-        </select>
-      </div>
-      <div class="form-group mb-3">
-        <label>Foto del inmueble </label>
-          <input type="file" class="form-control" name="archivo" >
-      </div>
-      <div class="form-group mb-3">
-        <textarea rows="10" class="form-control" placeholder="Descripcion"></textarea>
->>>>>>> rama
-      </div>
-      <div>
-          <button type="submit" class="btn btn-dark mb-3">Publicar</button>
-      </div>
-</body>
+            </div>
+        </nav>
+        <h3 class="text-center">Publique su inmueble</h3>
+        <form class="form" th:action="@{/propiedades/publicado}" method="POST" enctype="multipart/form-data">
+            <div class="form-group mb-3">
+                <select class="form-select" th:value="${TransaccionPropiedad}" aria-label="Default select example">
+                    <option selected>Tipo de transacción</option>
+                    <option value="VENTA">Venta</option>
+                    <option value="ALQUILER">Alquiler</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" name="precio" placeholder="Precio" th:value="${precio}">
+            </div>
+            <div class="form-group mb-3">
+                <select class="form-select" th:value="${PropiedadTipo}" aria-label="Default select example">
+                    <option selected>Tipo de propiedad</option>
+                    <option value="CASA">Casa</option>
+                    <option value="DEPARTAMENTO">Departamento</option>
+                    <option value="LOTE">Lote</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" name="m2" placeholder="Metros cuadrados" th:value="${m2}">
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" name="habitaciones" placeholder="Cant. Habitaciones" th:value="${habitaciones}">
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" name="banos" placeholder="Cant. baños" th:value="${banos}">
+            </div>
+            <div class="form-group mb-3">
+                <select class="form-select" th:value="${cochera}" aria-label="Default select example">
+                    <option selected>Cochera</option>
+                    <option value="SI">Si</option>
+                    <option value="NO">No</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <select class="form-select" th:field="*{ProvinciaEnum}" aria-label="Default select example">
+                    <option selected>Provincia</option>
+                        <option th:each="provincia : ${provincias}" th:value="${provincia.value}" th:text="${provincia.label}" th:selected="${provincia.value == ProvinciaEnum}"></option>
+                    
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" name="direccion" placeholder="Dirección" th:value="${direccion}">
+            </div>    
+            <div class="form-group mb-3">
+                <label>Foto del inmueble </label>
+                <input type="file" class="form-control" name="archivo" th:value="${image}">
+            </div>
+            <div class="form-group mb-3">
+                <textarea rows="10" class="form-control" placeholder="Descripcion" th:value="${descripcion}"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-dark mb-3">Publicar</button>
+            </div>
+        </form>
+    </body>
 </html>

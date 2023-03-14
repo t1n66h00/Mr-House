@@ -102,13 +102,9 @@ public class PropiedadServicios {
 
     private Propiedad validar(Propiedad propiedad) throws MyException {
         propiedad.setAlta(Optional.of(true));
-
         if (propiedad.getPrecio() == null) {
             throw new MyException("El precio no puede ser nulo");
 
-        }
-        if (propiedad.getPropiedadTipo().isEmpty() || propiedad.getPropiedadTipo() == null) {
-            throw new MyException("El tipo de propiedad no puede ser nulo o estar vacío");
         }
         if (propiedad.getM2().isEmpty() || propiedad.getM2() == null) {
             throw new MyException("La cantidad de metros cuadrados no puede ser nula");
@@ -128,12 +124,6 @@ public class PropiedadServicios {
         if (propiedad.getInmobiliaria().getId().isEmpty() || propiedad.getInmobiliaria().getId() == null) {
             throw new MyException("La inmobiliaria no puede ser nula o estar vacía");
         }
-        if (propiedad.getTransaccionPropiedad().isEmpty() || propiedad.getTransaccionPropiedad() == null) {
-            throw new MyException("La propiedad no puede ser nula o estar vacía");
-        }
-        if (propiedad.getProvincia().isEmpty() || propiedad.getProvincia() == null) {
-            throw new MyException("La provincia no puede ser nula o estar vacía");
-        }
         return propiedad;
     }
 
@@ -145,13 +135,13 @@ public class PropiedadServicios {
                 && propiedadC.getPropiedadTipo().equals(propiedadP.getPropiedadTipo())
                 && propiedadC.getHabitaciones().equals(propiedadP.getHabitaciones())
                 && propiedadC.getBanos().equals(propiedadP.getBanos())
-                && propiedadC.isCochera() == (propiedadP.isCochera())
+                && propiedadC.getCochera().equals(propiedadP.getCochera())
                 && propiedadC.getDireccion().equals(propiedadP.getDireccion())
                 && propiedadC.getDescripcion().equals(propiedadP.getDescripcion())
                 && propiedadC.getFoto().equals(propiedadP.getFoto())
                 && propiedadC.getInmobiliaria().equals(propiedadP.getInmobiliaria())
                 && propiedadC.getTransaccionPropiedad().equals(propiedadP.getTransaccionPropiedad())
-                && propiedadC.getProvincia().equals(propiedadP.getProvincia())) {
+                && propiedadC.getProvincias().equals(propiedadP.getProvincias())) {
             throw new MyException("No existen cambios para editar");
         }
         if (!propiedadC.getPrecio().equals(propiedadP.getPrecio())) {
@@ -169,8 +159,8 @@ public class PropiedadServicios {
         if (!propiedadC.getBanos().equals(propiedadP.getBanos())) {
             propiedadP.setBanos(propiedadC.getBanos());
         }
-        if (!propiedadC.isCochera() == (propiedadP.isCochera())) {
-            propiedadP.setCochera(propiedadC.isCochera());
+        if (!propiedadC.getCochera().equals(propiedadP.getCochera())) {
+            propiedadP.setCochera(propiedadC.getCochera());
         }
         if (!propiedadC.getDireccion().equals(propiedadP.getDireccion())) {
             propiedadP.setDireccion(propiedadC.getDireccion());

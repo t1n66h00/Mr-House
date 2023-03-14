@@ -5,9 +5,16 @@
  */
 package MrHouse.entidades;
 
+import MrHouse.enumeraciones.Cochera;
+import MrHouse.enumeraciones.PropiedadTipo;
+import MrHouse.enumeraciones.ProvinciaEnum;
+import MrHouse.enumeraciones.TransaccionPropiedad;
+import com.sun.istack.NotNull;
 import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -31,15 +38,24 @@ public class Propiedad {
 
 
     private Double precio;
-    private String propiedadTipo; //1=CASA 2=DEPARTAMENTO   
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private PropiedadTipo propiedadTipo; //1=CASA 2=DEPARTAMENTO   
     private String m2;
     private String habitaciones;
     private String banos;
-    private boolean cochera;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Cochera cochera;
     private String direccion;
     private String descripcion;
-    private String transaccionPropiedad; //Tipo de transacción: Venta o Alquiler
-    private String provincia;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TransaccionPropiedad transaccionPropiedad; //Tipo de transacción: Venta o Alquiler
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProvinciaEnum provincias;
 
     private boolean alta;
 
@@ -83,14 +99,6 @@ public class Propiedad {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public String getPropiedadTipo() {
-        return propiedadTipo;
-    }
-
-    public void setPropiedadTipo(String propiedadTipo) {
-        this.propiedadTipo = propiedadTipo;
     }
 
     public Double getPrecio() {
@@ -140,14 +148,6 @@ public class Propiedad {
     public void setFoto(Foto foto) {
         this.foto = foto;
     }
-    
-    public boolean isCochera() {
-        return cochera;
-    }
-
-    public void setCochera(boolean cochera) {
-        this.cochera = cochera;
-    }
 
     public boolean isAlta() {
         return alta;
@@ -160,20 +160,37 @@ public class Propiedad {
     public void setAlta(Optional<Boolean> alta) {
         this.alta = alta.orElse(false);
     }
+    
+    public ProvinciaEnum getProvincias() {
+        return provincias;
+    }
 
-    public String getTransaccionPropiedad() {
+    public void setProvincias(ProvinciaEnum provincias) {
+        this.provincias = provincias;
+    }
+
+    public PropiedadTipo getPropiedadTipo() {
+        return propiedadTipo;
+    }
+
+    public void setPropiedadTipo(PropiedadTipo propiedadTipo) {
+        this.propiedadTipo = propiedadTipo;
+    }
+
+    public Cochera getCochera() {
+        return cochera;
+    }
+
+    public void setCochera(Cochera cochera) {
+        this.cochera = cochera;
+    }
+
+    public TransaccionPropiedad getTransaccionPropiedad() {
         return transaccionPropiedad;
     }
 
-    public void setTransaccionPropiedad(String transaccionPropiedad) {
+    public void setTransaccionPropiedad(TransaccionPropiedad transaccionPropiedad) {
         this.transaccionPropiedad = transaccionPropiedad;
     }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
+    
 }
