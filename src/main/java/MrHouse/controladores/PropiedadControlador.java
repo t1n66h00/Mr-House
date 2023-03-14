@@ -6,6 +6,10 @@
 package MrHouse.controladores;
 
 import MrHouse.entidades.Propiedad;
+import MrHouse.enumeraciones.Cochera;
+import MrHouse.enumeraciones.PropiedadTipo;
+import MrHouse.enumeraciones.ProvinciaEnum;
+import MrHouse.enumeraciones.TransaccionPropiedad;
 import MrHouse.excepciones.MyException;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,12 +43,11 @@ public class PropiedadControlador {
     public String publicar() {
         return "publicar.html";
     }
-    
+
     @PostMapping("/publicado")
-    public String registro(@RequestParam String precio, @RequestParam String propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @RequestParam boolean cochera, @RequestParam String direccion, @RequestParam String ciudad, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
-        
+    public String registro( ProvinciaEnum provincias, @RequestParam TransaccionPropiedad transaccionPropiedad, @RequestParam Double precio, @RequestParam PropiedadTipo propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @RequestParam Cochera cochera, @RequestParam String direccion, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
+
         Propiedad propiedadV = new Propiedad();
-        
         propiedadV.setPrecio(precio);
         propiedadV.setPropiedadTipo(propiedadTipo);
         propiedadV.setM2(m2);
@@ -52,9 +55,10 @@ public class PropiedadControlador {
         propiedadV.setBanos(banos);
         propiedadV.setCochera(cochera);
         propiedadV.setDireccion(direccion);
-        propiedadV.setCiudad(ciudad);
         propiedadV.setDescripcion(descripcion);
-        
+        propiedadV.setDescripcion(descripcion);
+        propiedadV.setTransaccionPropiedad(transaccionPropiedad);
+        propiedadV.setProvincias(provincias);
         try {
             propiedadServicios.registrar(archivo, propiedadV);
             modelo.put("exito", "Se publicó la propiedad correctamente");
@@ -62,13 +66,12 @@ public class PropiedadControlador {
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("precio", precio);
-            modelo.put("propiedadTipo", propiedadTipo );
+            modelo.put("propiedadTipo", propiedadTipo);
             modelo.put("m2", m2);
             modelo.put("habitaciones", habitaciones);
             modelo.put("banos", banos);
             modelo.put("cochera", cochera);
             modelo.put("direccion", direccion);
-            modelo.put("ciudad", ciudad);
             modelo.put("descripcion", descripcion);
             return "publicar.html";
         }

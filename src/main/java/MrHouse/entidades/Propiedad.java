@@ -5,8 +5,16 @@
  */
 package MrHouse.entidades;
 
+import MrHouse.enumeraciones.Cochera;
+import MrHouse.enumeraciones.PropiedadTipo;
+import MrHouse.enumeraciones.ProvinciaEnum;
+import MrHouse.enumeraciones.TransaccionPropiedad;
+import com.sun.istack.NotNull;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -28,15 +36,26 @@ public class Propiedad {
 
     @Column(unique = true)
 
-    private String precio;
-    private String propiedadTipo; //1=CASA 2=DEPARTAMENTO   
+
+    private Double precio;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private PropiedadTipo propiedadTipo; //1=CASA 2=DEPARTAMENTO   
     private String m2;
     private String habitaciones;
     private String banos;
-    private boolean cochera;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Cochera cochera;
     private String direccion;
-    private String ciudad;
     private String descripcion;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TransaccionPropiedad transaccionPropiedad; //Tipo de transacción: Venta o Alquiler
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProvinciaEnum provincias;
 
     private boolean alta;
 
@@ -56,14 +75,6 @@ public class Propiedad {
 
     public void setId(String id) {
         this.id = id;
-    }
-    
-    public String getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(String precio) {
-        this.precio = precio;
     }
 
     public String getM2() {
@@ -90,12 +101,12 @@ public class Propiedad {
         this.descripcion = descripcion;
     }
 
-    public String getPropiedadTipo() {
-        return propiedadTipo;
+    public Double getPrecio() {
+        return precio;
     }
 
-    public void setPropiedadTipo(String propiedadTipo) {
-        this.propiedadTipo = propiedadTipo;
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
     public String getHabitaciones() {
@@ -104,14 +115,6 @@ public class Propiedad {
 
     public void setHabitaciones(String habitaciones) {
         this.habitaciones = habitaciones;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
     }
 
     public Inmobiliaria getInmobiliaria() {
@@ -146,15 +149,6 @@ public class Propiedad {
         this.foto = foto;
     }
 
-
-    public boolean isCochera() {
-        return cochera;
-    }
-
-    public void setCochera(boolean cochera) {
-        this.cochera = cochera;
-    }
-
     public boolean isAlta() {
         return alta;
     }
@@ -162,4 +156,41 @@ public class Propiedad {
     public void setAlta(boolean alta) {
         this.alta = alta;
     }
+
+    public void setAlta(Optional<Boolean> alta) {
+        this.alta = alta.orElse(false);
+    }
+    
+    public ProvinciaEnum getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(ProvinciaEnum provincias) {
+        this.provincias = provincias;
+    }
+
+    public PropiedadTipo getPropiedadTipo() {
+        return propiedadTipo;
+    }
+
+    public void setPropiedadTipo(PropiedadTipo propiedadTipo) {
+        this.propiedadTipo = propiedadTipo;
+    }
+
+    public Cochera getCochera() {
+        return cochera;
+    }
+
+    public void setCochera(Cochera cochera) {
+        this.cochera = cochera;
+    }
+
+    public TransaccionPropiedad getTransaccionPropiedad() {
+        return transaccionPropiedad;
+    }
+
+    public void setTransaccionPropiedad(TransaccionPropiedad transaccionPropiedad) {
+        this.transaccionPropiedad = transaccionPropiedad;
+    }
+    
 }
