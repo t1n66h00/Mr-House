@@ -1,0 +1,114 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mr-House</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6dd88c038c.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/css/estilos.css">
+        <link rel="icon" th:href="@{/img/Favicon.ico}">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/Logo.png}" width="50px" height="50px" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/propiedades}">Propiedades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/inmobiliarias}">Inmobiliarias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="@{/contacto}">Contacto</a>
+                        </li>
+                    </ul>
+                    <a th:href="@{/ingresar}"><button class="btn btn-dark"th:if ="${session.usuariosession ==null}">Ingresar</button></a>
+                    <a th:href="@{/publicar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}"  >Publicar</button></a>
+                    <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/perfil}">Mi perfil</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/usuarios}">Administrar usuarios</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header class="header">
+            <section class="contenedorMain">
+                <div >
+                    <a class="navbar-brand" th:text="'Error ' + ${codigo}">BIBLIOTECA EGG</a>
+                    <p  th:text="${mensaje}"></p>
+
+                </div>
+                <section class="text-center container">
+                    <div class="row mt-3">
+                        <div class="divVolver">
+                            <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                        </div>
+                    </div>
+                </section>
+                <div class="container contenedorLibros">
+                    <p class="tituloLibros" th:if="${session.usuariosession != null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></p>
+
+                </div>
+                <div class="bg-circle-1 bg-circle"></div>
+                <div class="bg-circle-2 bg-circle"></div>
+                <div class="bg-circle-3 bg-circle"></div>
+                <div class="bg-circle-4 bg-circle"></div>
+            </section>
+        </header>
+
+
+        <br></br>
+        <div class=" d-flex justify-content-center align-items-center">
+            <img src="/img/Titulo.png" width="500 px" height="100 px" alt="Titulo">
+        </div>
+        <br></br>
+        <div class="searchbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <select class="form-select">
+                            <option value="">Inmuebles</option>
+                            <option value="option1">Casas</option>
+                            <option value="option2">Departamentos</option>
+                            <option value="option3">Lotes</option>
+                        </select>
+                        <select class="form-select">
+                            <option value="">Transaccion</option>
+                            <option value="option1">Alquiler</option>
+                            <option value="option2">Venta</option>
+                        </select>
+                        <select class="form-select">
+                            <option value="">Provincia</option>
+                            <option value="option1">Buenos Aires</option>
+                            <option value="option2">Cordoba</option>
+                            <option value="option3">Mendoza</option>
+                            <option value="option4">Santa Fe</option>
+                        </select>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Desde $ARS:" aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Hasta $ARS:" aria-label="Search">
+                        <button class="btn btn-dark fa-solid fa-magnifying-glass" type="submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/searchbar.js"></script>
+    </body>
+</html>
