@@ -43,11 +43,14 @@ public class PropiedadControlador {
     @GetMapping("/publicar")
     public String publicar(ModelMap modelo) {
         modelo.addAttribute("provincias", ProvinciaEnum.values());
+        modelo.addAttribute("transaccionPropiedad", TransaccionPropiedad.values());
+        modelo.addAttribute("propiedadTipo", PropiedadTipo.values());
+        modelo.addAttribute("cochera", Cochera.values());
     return "publicar.html";
     }
 
     @PostMapping("/publicado")
-    public String registro( @ModelAttribute("provincias")ProvinciaEnum provincias, @RequestParam TransaccionPropiedad transaccionPropiedad, @RequestParam Double precio, @RequestParam PropiedadTipo propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @RequestParam Cochera cochera, @RequestParam String direccion, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
+    public String registro( @ModelAttribute("provincias")ProvinciaEnum provincias, @ModelAttribute ("transaccionPropiedad") TransaccionPropiedad transaccionPropiedad, @RequestParam Double precio, @ModelAttribute ("propiedadTipo") PropiedadTipo propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @ModelAttribute ("cochera") Cochera cochera, @RequestParam String direccion, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
 
         Propiedad propiedadV = new Propiedad();
         propiedadV.setPrecio(precio);
@@ -57,7 +60,6 @@ public class PropiedadControlador {
         propiedadV.setBanos(banos);
         propiedadV.setCochera(cochera);
         propiedadV.setDireccion(direccion);
-        propiedadV.setDescripcion(descripcion);
         propiedadV.setDescripcion(descripcion);
         propiedadV.setTransaccionPropiedad(transaccionPropiedad);
         propiedadV.setProvincias(provincias);
@@ -76,6 +78,7 @@ public class PropiedadControlador {
             modelo.put("direccion", direccion);
             modelo.put("descripcion", descripcion);
             modelo.put("provincias", provincias);
+            modelo.put("transaccionPropiedad", transaccionPropiedad);
             return "publicar.html";
         }
     }

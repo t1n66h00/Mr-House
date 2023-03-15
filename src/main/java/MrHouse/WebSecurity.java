@@ -29,15 +29,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     public ClienteServicios clienteServicio;
     
-    @Autowired
-    public InmobiliariaServicios inmobiliariaServicio;
+
     
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(clienteServicio)
-                .passwordEncoder(new BCryptPasswordEncoder());
-        
-        auth.userDetailsService(inmobiliariaServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
     
@@ -45,7 +41,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/*").hasRole("INMOBILIARIA")
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/css/*","/js/*","/img*","/**")
                 .permitAll()

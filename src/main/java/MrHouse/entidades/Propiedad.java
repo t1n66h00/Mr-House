@@ -61,10 +61,6 @@ public class Propiedad {
 
     @OneToOne
     private Foto foto;
-    @OneToOne
-    private Inmobiliaria inmobiliaria;
-    @OneToOne
-    private Propietario propietario;
 
     public Propiedad() {
     }
@@ -115,22 +111,6 @@ public class Propiedad {
 
     public void setHabitaciones(String habitaciones) {
         this.habitaciones = habitaciones;
-    }
-
-    public Inmobiliaria getInmobiliaria() {
-        return inmobiliaria;
-    }
-
-    public void setInmobiliaria(Inmobiliaria inmobiliaria) {
-        this.inmobiliaria = inmobiliaria;
-    }
-
-    public Propietario getPropietario() {
-        return propietario;
-    }
-
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
     }
 
     public String getDireccion() {

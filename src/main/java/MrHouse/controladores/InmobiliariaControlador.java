@@ -64,8 +64,7 @@ public class InmobiliariaControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ADMIN','ROLE_PROPIETARIO','ROLE_INMOBILIARIA')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
-        Inmobiliaria logueadoI = (Inmobiliaria) session.getAttribute("inmobiliariasession");
+    public String inicio() {
 
         return "index.html";
     }

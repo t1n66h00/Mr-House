@@ -48,21 +48,22 @@
         <h3 class="text-center">Publique su inmueble</h3>
         <form class="form" th:action="@{/propiedades/publicado}" method="POST" enctype="multipart/form-data">
             <div class="form-group mb-3">
-                <select class="form-select" th:value="${TransaccionPropiedad}" aria-label="Default select example">
-                    <option selected>Tipo de transacción</option>
-                    <option value="VENTA">Venta</option>
-                    <option value="ALQUILER">Alquiler</option>
+                <select class="form-select" name="transaccionPropiedad"  aria-label="Seleccionar tipo de transacción" required>
+                    <option value="" selected>Seleccionar tipo de transacción</option>
+                    <option th:each="p : ${T(MrHouse.enumeraciones.TransaccionPropiedad).values()}" 
+                            th:value="${p}" 
+                            th:text="${p}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">
                 <input type="text" class="form-control" name="precio" placeholder="Precio" th:value="${precio}">
             </div>
             <div class="form-group mb-3">
-                <select class="form-select" th:value="${PropiedadTipo}" aria-label="Default select example">
-                    <option selected>Tipo de propiedad</option>
-                    <option value="CASA">Casa</option>
-                    <option value="DEPARTAMENTO">Departamento</option>
-                    <option value="LOTE">Lote</option>
+                <select class="form-select" name="propiedadTipo"  aria-label="Seleccionar tipo de propiedad" required>
+                    <option value="" selected>Seleccionar tipo de propiedad</option>
+                    <option th:each="p : ${T(MrHouse.enumeraciones.PropiedadTipo).values()}" 
+                            th:value="${p}" 
+                            th:text="${p}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">
@@ -75,10 +76,11 @@
                 <input type="text" class="form-control" name="banos" placeholder="Cant. baños" th:value="${banos}">
             </div>
             <div class="form-group mb-3">
-                <select class="form-select" th:value="${cochera}" aria-label="Default select example">
-                    <option selected>Cochera</option>
-                    <option value="SI">Si</option>
-                    <option value="NO">No</option>
+                <select class="form-select" name="cochera"  aria-label="¿Tiene cochera?" required>
+                    <option value="" selected>¿Tiene cochera?</option>
+                    <option th:each="p : ${T(MrHouse.enumeraciones.Cochera).values()}" 
+                            th:value="${p}" 
+                            th:text="${p}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">
@@ -97,7 +99,7 @@
                 <input type="file" class="form-control" name="archivo" th:value="${image}">
             </div>
             <div class="form-group mb-3">
-                <textarea rows="10" class="form-control" placeholder="Descripcion" th:value="${descripcion}"></textarea>
+                <textarea rows="10" class="form-control" name="descripcion "placeholder="Descripcion" th:value="${descripcion}"></textarea>
             </div>
             <div>
                 <button type="submit" class="btn btn-dark mb-3">Publicar</button>

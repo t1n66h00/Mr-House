@@ -35,41 +35,25 @@
         </li>
       </ul>
       <a th:href="@{/ingresar}"><button class="btn btn-dark"th:if ="${session.usuariosession ==null}">Ingresar</button></a>
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/main/resources/templates/propiedades.html
-=======
->>>>>>> rama
       <a th:href="@{/ingresar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}" >Publicar</button></a>
         <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/perfil">Mi perfil</a></li>
           <li><a class="dropdown-item" href="/usuarios">Administrar usuarios</a></li>
-<<<<<<< HEAD
-========
       <a th:href="@{/publicar}"><button class="btn btn-dark" th:if ="${session.usuariosession !=null}"  >Publicar</button></a>
         <button class="btn btn-dark fa-solid fa-user dropdown-toggle" th:if ="${session.usuariosession !=null}" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" th:href="@{/perfil}">Mi perfil</a></li>
           <li><a class="dropdown-item" th:href="@{/admin/usuarios}">Administrar usuarios</a></li>
->>>>>>>> rama:src/main/resources/templates/inmueble.html
-=======
->>>>>>> rama
           <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
         </ul>
     </div>
   </div>
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/main/resources/templates/propiedades.html
 </nav>
 <br>
-    <h1 class="titulos">Propiedades</h1>
-</body>
-</html>
-========
-</nav>
->>>>>>>> rama:src/main/resources/templates/inmueble.html
-=======
-</nav>
+
+
+
 <br>
     <h1 class="titulos">Propiedades</h1>
     <br>
@@ -94,4 +78,3 @@
       </div>
 </body>
 </html>
->>>>>>> rama

@@ -120,9 +120,6 @@ public class PropiedadServicios {
         if (propiedad.getDireccion().isEmpty() || propiedad.getDireccion() == null) {
             throw new MyException("La dirección no puede ser nula o estar vacía");
         }
-        if (propiedad.getInmobiliaria().getId().isEmpty() || propiedad.getInmobiliaria().getId() == null) {
-            throw new MyException("La inmobiliaria no puede ser nula o estar vacía");
-        }
         if (propiedad.getProvincias() == null) {
             throw new MyException("La provincia no puede ser nula o estar vacía");
         }
@@ -141,7 +138,6 @@ public class PropiedadServicios {
                 && propiedadC.getDireccion().equals(propiedadP.getDireccion())
                 && propiedadC.getDescripcion().equals(propiedadP.getDescripcion())
                 && propiedadC.getFoto().equals(propiedadP.getFoto())
-                && propiedadC.getInmobiliaria().equals(propiedadP.getInmobiliaria())
                 && propiedadC.getTransaccionPropiedad().equals(propiedadP.getTransaccionPropiedad())
                 && propiedadC.getProvincias().equals(propiedadP.getProvincias())) {
             throw new MyException("No existen cambios para editar");
@@ -176,11 +172,6 @@ public class PropiedadServicios {
         if (!propiedadC.getFoto()
                 .equals(propiedadP.getFoto())) {
             propiedadP.setFoto(propiedadC.getFoto());
-        }
-
-        if (!propiedadC.getInmobiliaria()
-                .equals(propiedadP.getInmobiliaria())) {
-            propiedadP.setInmobiliaria(propiedadC.getInmobiliaria());
         }
         
         if (!propiedadC.getProvincias().equals(propiedadP.getProvincias())) {
