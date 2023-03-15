@@ -6,6 +6,7 @@
 package MrHouse;
 
 import MrHouse.servicios.ClienteServicios;
+import MrHouse.servicios.InmobiliariaServicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,8 +30,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public ClienteServicios clienteServicio;
     
     @Autowired
+    public InmobiliariaServicios inmobiliariaServicio;
+    
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(clienteServicio)
+                .passwordEncoder(new BCryptPasswordEncoder());
+        
+        auth.userDetailsService(inmobiliariaServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
     
@@ -38,6 +45,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/*").hasRole("INMOBILIARIA")
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/css/*","/js/*","/img*","/**")
                 .permitAll()

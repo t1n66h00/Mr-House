@@ -5,9 +5,12 @@
  */
 package MrHouse.controladores;
 
+import MrHouse.entidades.Cliente;
+import MrHouse.entidades.Inmobiliaria;
 import MrHouse.enumeraciones.ProvinciaEnum;
 import MrHouse.excepciones.MyException;
 import MrHouse.servicios.InmobiliariaServicios;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -61,7 +64,9 @@ public class InmobiliariaControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ADMIN','ROLE_PROPIETARIO','ROLE_INMOBILIARIA')")
     @GetMapping("/inicio")
-    public String inicio() {
+    public String inicio(HttpSession session) {
+        Inmobiliaria logueadoI = (Inmobiliaria) session.getAttribute("inmobiliariasession");
+
         return "index.html";
     }
 

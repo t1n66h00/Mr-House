@@ -132,7 +132,7 @@ public class InmobiliariaServicios implements UserDetailsService {
             
             session.setAttribute("inmobiliariasession",inmobiliaria);
 
-            return new User(inmobiliaria.getId(), inmobiliaria.getPassword(), permisos);
+            return new User(inmobiliaria.getEmail(), inmobiliaria.getPassword(), permisos);
 
         } else {
             return null;
