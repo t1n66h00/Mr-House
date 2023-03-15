@@ -5,6 +5,7 @@
  */
 package MrHouse.controladores;
 
+import MrHouse.enumeraciones.ProvinciaEnum;
 import MrHouse.excepciones.MyException;
 import MrHouse.servicios.InmobiliariaServicios;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,15 +31,16 @@ public class InmobiliariaControlador {
     private InmobiliariaServicios inmobiliariaServicios;
 
     @GetMapping("/registrar")
-    public String registrar() {
+    public String registrar(ModelMap modelo) {
+        modelo.addAttribute("provincias", ProvinciaEnum.values());
         return "registro.html";
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
+    public String registro(@ModelAttribute("provincias")ProvinciaEnum provincias, @RequestParam String nombre, @RequestParam String email, @RequestParam String password,
             @RequestParam String password2, ModelMap modelo, MultipartFile archivo) {
         try {
-            inmobiliariaServicios.registrar(archivo, nombre, email, password, password2);
+            inmobiliariaServicios.registrar(archivo, nombre, email, password, password2, provincias);
             modelo.put("exito", "Inmobiliaria registrada correctamente");
             return "index.html";
         } catch (MyException ex) {

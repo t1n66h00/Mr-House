@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,12 +41,13 @@ public class PropiedadControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_INMOBILIARIA')")
     @GetMapping("/publicar")
-    public String publicar() {
-        return "publicar.html";
+    public String publicar(ModelMap modelo) {
+        modelo.addAttribute("provincias", ProvinciaEnum.values());
+    return "publicar.html";
     }
 
     @PostMapping("/publicado")
-    public String registro( ProvinciaEnum provincias, @RequestParam TransaccionPropiedad transaccionPropiedad, @RequestParam Double precio, @RequestParam PropiedadTipo propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @RequestParam Cochera cochera, @RequestParam String direccion, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
+    public String registro( @ModelAttribute("provincias")ProvinciaEnum provincias, @RequestParam TransaccionPropiedad transaccionPropiedad, @RequestParam Double precio, @RequestParam PropiedadTipo propiedadTipo, @RequestParam String m2, @RequestParam String habitaciones, @RequestParam String banos, @RequestParam Cochera cochera, @RequestParam String direccion, @RequestParam String descripcion, ModelMap modelo, MultipartFile archivo) {
 
         Propiedad propiedadV = new Propiedad();
         propiedadV.setPrecio(precio);
@@ -73,6 +75,7 @@ public class PropiedadControlador {
             modelo.put("cochera", cochera);
             modelo.put("direccion", direccion);
             modelo.put("descripcion", descripcion);
+            modelo.put("provincias", provincias);
             return "publicar.html";
         }
     }

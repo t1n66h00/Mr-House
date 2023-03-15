@@ -114,14 +114,13 @@
                     <input type="text" class="form-control" name="nombre" placeholder="Nombre de la inmobiliaria" th:value="${nombre}">
                 </div>
                 <div class="form-group mb-3">
-                  <select class="form-select" th:value="${provincia}" aria-label="Default select example">
-                    <option selected>Provincia</option>
-                    <option value="1">Buenos Aires</option>
-                    <option value="2">Cordoba</option>
-                    <option value="3">Mendoza</option>
-                    <option value="3">Santa Fe</option>
-                  </select>
-                </div>
+                <select class="form-select" name="provincias"  aria-label="Seleccionar provincia" required>
+                    <option value="" selected>Seleccionar provincia</option>
+                    <option th:each="p : ${T(MrHouse.enumeraciones.ProvinciaEnum).values()}" 
+                            th:value="${p}" 
+                            th:text="${p}"></option>
+                </select>
+            </div>
                 <div class="form-group mb-3">
                     <input type="email" class="form-control" name="email" placeholder="Correo electronico" th:value="${email}">
                 </div>

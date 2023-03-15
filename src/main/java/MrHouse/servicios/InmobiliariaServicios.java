@@ -8,6 +8,7 @@ package MrHouse.servicios;
 
 import MrHouse.entidades.Foto;
 import MrHouse.entidades.Inmobiliaria;
+import MrHouse.enumeraciones.ProvinciaEnum;
 import MrHouse.enumeraciones.Roles;
 import MrHouse.excepciones.MyException;
 import MrHouse.repositorios.InmobiliariaRepositorio;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +26,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -40,27 +44,27 @@ public class InmobiliariaServicios implements UserDetailsService {
     private FotoServicios fotoServicios;
 
     @Transactional
-    public void registrar(MultipartFile archivo,String nombre, String email, String password, String password2) throws MyException {
+    public void registrar(MultipartFile archivo,String nombre, String email, String password, String password2, ProvinciaEnum provincias) throws MyException {
 
-        validar(nombre, email, password, password2);
+        validar(nombre, email, password, provincias);
 
         Inmobiliaria inmobiliaria = new Inmobiliaria();
         inmobiliaria.setNombre(nombre);
         inmobiliaria.setEmail(email);
         inmobiliaria.setPassword(new BCryptPasswordEncoder().encode(password));
         inmobiliaria.setRol(Roles.INMOBILIARIA);
-        /*
+        inmobiliaria.setProvincias(provincias);
         Foto foto = fotoServicios.save(archivo);
         inmobiliaria.setFoto(foto);
-        */
+
         inmobiliariaRepositorio.save(inmobiliaria);
 
     }
 
     @Transactional
-    public void modificar(MultipartFile archivo, String id, String nombre, String email, String password, String password2) throws MyException {
+    public void modificar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, ProvinciaEnum provincias) throws MyException {
 
-        validar(nombre, email, password, password2);
+        validar(nombre, email, password, provincias);
 
         Optional<Inmobiliaria> respuesta = inmobiliariaRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -95,7 +99,7 @@ public class InmobiliariaServicios implements UserDetailsService {
         }
     }
 
-    private void validar(String title, String body, String photo, String password2) throws MyException {
+    private void validar(String title, String body, String photo, ProvinciaEnum provincias) throws MyException {
         if (null == title || title.isEmpty()) {
             throw new MyException("El título ingresado no es válido.");
         }
@@ -105,11 +109,14 @@ public class InmobiliariaServicios implements UserDetailsService {
         if (null == photo || photo.isEmpty()) {
             throw new MyException("La foto no es válida.");
         }
+        if ( null == provincias) {
+            throw new MyException("La provincia no puede ser nula o estar vacía");
+        }
     }
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Inmobiliaria inmobiliaria = inmobiliariaRepositorio.buscarPorID(id);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Inmobiliaria inmobiliaria = inmobiliariaRepositorio.buscarPorEmail(email);
 
         if (inmobiliaria != null) {
 
@@ -118,6 +125,12 @@ public class InmobiliariaServicios implements UserDetailsService {
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + inmobiliaria.getRol().toString());
 
             permisos.add(p);
+            
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+            
+            session.setAttribute("inmobiliariasession",inmobiliaria);
 
             return new User(inmobiliaria.getId(), inmobiliaria.getPassword(), permisos);
 

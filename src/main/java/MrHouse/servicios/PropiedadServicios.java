@@ -104,7 +104,6 @@ public class PropiedadServicios {
         propiedad.setAlta(Optional.of(true));
         if (propiedad.getPrecio() == null) {
             throw new MyException("El precio no puede ser nulo");
-
         }
         if (propiedad.getM2().isEmpty() || propiedad.getM2() == null) {
             throw new MyException("La cantidad de metros cuadrados no puede ser nula");
@@ -123,6 +122,9 @@ public class PropiedadServicios {
         }
         if (propiedad.getInmobiliaria().getId().isEmpty() || propiedad.getInmobiliaria().getId() == null) {
             throw new MyException("La inmobiliaria no puede ser nula o estar vacía");
+        }
+        if (propiedad.getProvincias() == null) {
+            throw new MyException("La provincia no puede ser nula o estar vacía");
         }
         return propiedad;
     }
@@ -179,6 +181,10 @@ public class PropiedadServicios {
         if (!propiedadC.getInmobiliaria()
                 .equals(propiedadP.getInmobiliaria())) {
             propiedadP.setInmobiliaria(propiedadC.getInmobiliaria());
+        }
+        
+        if (!propiedadC.getProvincias().equals(propiedadP.getProvincias())) {
+            propiedadP.setDireccion(propiedadC.getDireccion());
         }
         return propiedadP;
     }

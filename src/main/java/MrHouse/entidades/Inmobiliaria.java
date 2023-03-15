@@ -6,7 +6,9 @@
 package MrHouse.entidades;
 
 
+import MrHouse.enumeraciones.ProvinciaEnum;
 import MrHouse.enumeraciones.Roles;
+import com.sun.istack.NotNull;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,16 +34,13 @@ public class Inmobiliaria {
 
     @Column(unique = true)
     private String nombre;
-    private String provincia;
-    private String descripcion;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProvinciaEnum provincias;
     private String email;
     private String password;
     @OneToOne
     private Foto foto;
-    @OneToOne
-    private Propiedad propiedad;
-    @OneToOne
-    private Propietario propietario;
 
     public String getEmail() {
         return email;
@@ -69,14 +68,6 @@ public class Inmobiliaria {
         this.rol = rol;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
         public String getId() {
         return id;
     }
@@ -93,28 +84,12 @@ public class Inmobiliaria {
         this.nombre = nombre;
     }
 
-    public String getProvincia() {
-        return provincia;
+    public ProvinciaEnum getProvincias() {
+        return provincias;
     }
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public Propiedad getPropiedad() {
-        return propiedad;
-    }
-
-    public void setPropiedad(Propiedad propiedad) {
-        this.propiedad = propiedad;
-    }
-
-    public Propietario getPropietario() {
-        return propietario;
-    }
-
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+    public void setProvincias(ProvinciaEnum provincias) {
+        this.provincias = provincias;
     }
 
     public Foto getFoto() {

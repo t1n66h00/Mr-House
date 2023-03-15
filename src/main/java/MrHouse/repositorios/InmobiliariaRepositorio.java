@@ -5,8 +5,8 @@
  */
 package MrHouse.repositorios;
 
+
 import MrHouse.entidades.Inmobiliaria;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,5 +22,9 @@ public interface InmobiliariaRepositorio extends JpaRepository<Inmobiliaria, Str
     @Query("SELECT u FROM Inmobiliaria u WHERE u.id = :id")
 
     public Inmobiliaria buscarPorID(@Param("id") String id);
+    
+    @Query("SELECT u FROM Inmobiliaria u WHERE u.email = :email")
+    
+    public Inmobiliaria buscarPorEmail(@Param("email") String email);
 
 }

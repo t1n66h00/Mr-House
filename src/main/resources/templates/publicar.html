@@ -82,10 +82,11 @@
                 </select>
             </div>
             <div class="form-group mb-3">
-                <select class="form-select" th:field="*{ProvinciaEnum}" aria-label="Default select example">
-                    <option selected>Provincia</option>
-                        <option th:each="provincia : ${provincias}" th:value="${provincia.value}" th:text="${provincia.label}" th:selected="${provincia.value == ProvinciaEnum}"></option>
-                    
+                <select class="form-select" name="provincias"  aria-label="Seleccionar provincia" required>
+                    <option value="" selected>Seleccionar provincia</option>
+                    <option th:each="p : ${T(MrHouse.enumeraciones.ProvinciaEnum).values()}" 
+                            th:value="${p}" 
+                            th:text="${p}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">

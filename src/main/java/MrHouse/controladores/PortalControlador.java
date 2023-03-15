@@ -6,6 +6,7 @@
 package MrHouse.controladores;
 
 import MrHouse.entidades.Cliente;
+import MrHouse.entidades.Inmobiliaria;
 import MrHouse.excepciones.MyException;
 import MrHouse.servicios.ClienteServicios;
 import javax.servlet.http.HttpSession;
@@ -68,10 +69,13 @@ public class PortalControlador {
     @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ADMIN','ROLE_PROPIETARIO','ROLE_INMOBILIARIA')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
-        Cliente logueado = (Cliente) session.getAttribute("usuariosession");
-
-        if (logueado.getRol().toString().equals("ADMIN")) {
+        Cliente logueadoC = (Cliente) session.getAttribute("usuariosession");
+        Inmobiliaria logueadoI = (Inmobiliaria) session.getAttribute("inmobiliariasession");
+        if (logueadoC.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
+        }
+        if (logueadoI.getRol().toString().equals("INMOBILIARIA")) {
+            return "redirect:/";
         }
         return "index.html";
     }
